@@ -1,0 +1,12 @@
+.briefingSamples {
+    text-align: center;
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.briefingImagePairBox {
+    display: inline-block;
+    margin-left: 40px;
+    margin-bottom: 40px;
+    border: 2px solid #ccc;
+}
