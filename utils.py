@@ -1,14 +1,21 @@
-import os
-from PIL import Image
 import math
-import torch
-from torchvision import transforms
-from torchvision import utils
-import skimage.io
-import skimage.util
-import skimage.transform
+import os
+import random
 
 import numpy as np
+import skimage.color
+import skimage.draw
+import skimage.exposure
+import skimage.filters
+import skimage.filters.rank
+import skimage.io
+import skimage.morphology
+import skimage.transform
+import skimage.util
+from PIL import Image
+
+import torch
+from torchvision import transforms, utils
 
 INCEPTION_SIZE = 299
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
@@ -211,16 +218,6 @@ class ImageNetLabelDecoder():
                                                self.decode(i)))
 
 
-import skimage.filters.rank
-import skimage.morphology
-import skimage.color
-import skimage.exposure
-import skimage.draw
-import skimage.filters
-import skimage.io
-import random
-
-
 def image2mask(image, size=3):
     gray = skimage.color.rgb2gray(image)
     mask = skimage.filters.rank.entropy(gray, skimage.morphology.disk(size))
@@ -284,6 +281,7 @@ def open_image_as_segments(path):
     for i, val in enumerate(np.unique(img)):
         segments[img == val] = i
     return segments
+
 
 def relative_total_energy_from_map(energy_map):
     energy = np.sum(energy_map) / np.prod(energy_map.shape)
